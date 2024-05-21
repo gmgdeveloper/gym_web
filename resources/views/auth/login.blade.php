@@ -1,47 +1,116 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@include('..includes.authHeader')
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+<body class="login-page">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-wrapper">
+                <div class="navbar-toggle d-inline">
+                    <button type="button" class="navbar-toggler">
+                        <span class="navbar-toggler-bar bar1"></span>
+                        <span class="navbar-toggler-bar bar2"></span>
+                        <span class="navbar-toggler-bar bar3"></span>
+                    </button>
+                </div>
+                <a class="navbar-brand" href="javascript:void(0)">Login Page</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-bar navbar-kebab"></span>
+                <span class="navbar-toggler-bar navbar-kebab"></span>
+                <span class="navbar-toggler-bar navbar-kebab"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navigation">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="{{ route('register') }}" class="nav-link text-primary">
+                            <i class="tim-icons icon-minimal-left"></i> Register
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item ">
+                        <a href="register.html" class="nav-link">
+                            <i class="tim-icons icon-laptop"></i> Register
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="login.html" class="nav-link">
+                            <i class="tim-icons icon-single-02"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item  active ">
+                        <a href="pricing.html" class="nav-link">
+                            <i class="tim-icons icon-coins"></i> Pricing
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="lock.html" class="nav-link">
+                            <i class="tim-icons icon-lock-circle"></i> Lock
+                        </a>
+                    </li> --}}
+                </ul>
+            </div>
         </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+    </nav>
+    <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+    <div class="wrapper wrapper-full-page ">
+        <div class="full-page login-page ">
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+            <div class="content">
+                <div class="container">
+                    <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                        <form class="form" method="POST" action="{{ route('login') }}">
+                            @csrf
+                            <div class="card card-login card-white">
+                                <div class="card-header">
+                                    <img src="../../assets/img/card-primary.png" alt>
+                                    <h1 class="card-title">Log in</h1>
+                                </div>
+                                <div class="card-body">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="tim-icons icon-email-85"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Email" name="email"
+                                            value="{{ old('email') }}">
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="tim-icons icon-lock-circle"></i>
+                                            </div>
+                                        </div>
+                                        <input type="password" placeholder="Password" name="password"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block mb-3">Login</button>
+                                    <div class="pull-left">
+                                        <h6>
+                                            <a href="{{ route('register') }}" class="link footer-link">Create
+                                                Account</a>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+            @include('..includes.authFooter')
