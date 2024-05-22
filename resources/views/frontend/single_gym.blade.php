@@ -23,10 +23,10 @@
                                         <img src="front_assets/images/banner/product-5.jpg" alt="image">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="front_assets/images/banner/product-6.jpg" alt="image">
+                                        <img src="front_assets/images/banner/product-5.jpg" alt="image">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="front_assets/images/banner/product-4.jpg" alt="image">
+                                        <img src="front_assets/images/banner/product-5.jpg" alt="image">
                                     </div>
 
                                 </div>
@@ -37,10 +37,10 @@
                                         <img src="front_assets/images/banner/product-5.jpg" alt="image">
                                     </div>
                                     <div class="swiper-slide slide-smoll">
-                                        <img src="front_assets/images/banner/product-6.jpg" alt="image">
+                                        <img src="front_assets/images/banner/product-5.jpg" alt="image">
                                     </div>
                                     <div class="swiper-slide slide-smoll">
-                                        <img src="front_assets/images/banner/product-4.jpg" alt="image">
+                                        <img src="front_assets/images/banner/product-5.jpg" alt="image">
                                     </div>
 
                                 </div>
