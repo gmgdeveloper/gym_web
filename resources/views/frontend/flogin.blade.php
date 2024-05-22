@@ -10,7 +10,8 @@
 
     <link rel="shortcut icon" href="front_assets/images/banner/images.png">
 
-
+     
+    
 
 	<link rel="stylesheet" type="text/css" href="asset_login/vendor/bootstrap/css/bootstrap.min.css">
 
