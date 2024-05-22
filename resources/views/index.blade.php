@@ -81,7 +81,7 @@
     <!-- View area end here -->
 
     <!-- Product area start here -->
-    <section class="product-area pt-130 pb-130 mt-130">
+    <section class="product-area">
         <div class="container">
             <div
                 class="product__wrp pb-30 mb-65 bor-bottom d-flex flex-wrap align-items-center justify-content-xl-between justify-content-center">
