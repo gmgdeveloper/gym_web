@@ -49,7 +49,7 @@
                             </a>
                         </div>
                         <a href="{{route('flogin')}}" class="acc__cont">
-                            <span>
+                            <span class="text-white">
                                 My Account
                             </span>
                         </a>

@@ -52,7 +52,7 @@
                             </a>
                         </div>
                         <a href="{{route('fregister')}}" class="acc__cont">
-                            <span>
+                            <span class="text-white">
                                 My Account
                             </span>
                         </a>
