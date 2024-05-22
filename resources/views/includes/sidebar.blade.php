@@ -41,9 +41,9 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="pages/rtl.html">
-                                        <span class="sidebar-mini-icon">RS</span>
-                                        <span class="sidebar-normal"> RTL Support </span>
+                                    <a href="{{ route('user.index') }}">
+                                        <span class="sidebar-mini-icon">U</span>
+                                        <span class="sidebar-normal"> Users </span>
                                     </a>
                                 </li>
                                 <li>

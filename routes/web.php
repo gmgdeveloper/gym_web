@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,10 +33,10 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 // Route for showing registration form
-Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
+// Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
 
 // Route for submitting registration form
-Route::post('register', [AuthController::class, 'register']);
+// Route::post('register', [AuthController::class, 'register']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -45,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     // Show form to add a new gym
     Route::get('addGym', [GymController::class, 'create'])->name('gym.create');
 
@@ -65,6 +67,30 @@ Route::middleware('auth')->group(function () {
 
     // Delete a specific gym
     Route::delete('deleteGym/{gym}', [GymController::class, 'destroy'])->name('gym.destroy');
+
+
+
+
+    // Show form to add a new User
+    Route::get('addUser', [UserController::class, 'create'])->name('user.create');
+
+    // Store the newly added User
+    Route::post('addUser', [UserController::class, 'store'])->name('user.store');
+
+    // Show all User
+    Route::get('seeUsers', [UserController::class, 'index'])->name('user.index');
+
+    // Show details of a specific User
+    Route::get('seeUser/{user}', [UserController::class, 'show'])->name('user.show');
+
+    // Show form to edit a specific User
+    Route::get('editUser/{user}', [UserController::class, 'edit'])->name('user.edit');
+
+    // Update a specific User
+    Route::post('updateUser/{user}', [UserController::class, 'update'])->name('user.update');
+
+    // Delete a specific User
+    Route::delete('deleteUser/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });
 
 require __DIR__ . '/auth.php';

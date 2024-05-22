@@ -5,8 +5,8 @@
         <div class="col-md-12 mb-5">
             <div class="card ">
                 <div class="card-header">
-                    <h4 class="card-title pull-left mt-3"> Gyms</h4>
-                    <a href="{{ route('gym.create') }}" class="pull-right btn btn-fill btn-primary">Add New Gym</a>
+                    <h4 class="card-title pull-left mt-3"> users</h4>
+                    <a href="{{ route('user.create') }}" class="pull-right btn btn-fill btn-primary">Add New user</a>
 
                 </div>
                 <div class="card-body">
@@ -14,25 +14,18 @@
                         <table class="table tablesorter " id="simple-table">
                             <thead class=" text-primary">
                                 <tr>
-                                    <th>Thumbnail</th>
+                                    <th>Profile</th>
                                     <th>
                                         Name
                                     </th>
                                     <th>
-                                        Description
+                                        Email
                                     </th>
-                                    <th>Contact</th>
                                     <th>
                                         Location
                                     </th>
                                     <th>
-                                        Featured
-                                    </th>
-                                    <th class="text-center">
-                                        Fees
-                                    </th>
-                                    <th class="text-center">
-                                        Timing
+                                        Contact
                                     </th>
                                     <th>
                                         Action
@@ -40,46 +33,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($gyms)
+                                @if ($users)
 
-                                    @foreach ($gyms as $gym)
+                                    @foreach ($users as $user)
                                         <tr>
                                             <td>
                                                 <div class="image-container">
                                                     <img width="100"
-                                                        src="{{ $gym->thumbnail ? asset($gym->thumbnail) : asset('../../assets/img/image_placeholder.jpg') }}"
+                                                        src="{{ $user->profile ? asset($user->profile) : asset('../../assets/img/image_placeholder.jpg') }}"
                                                         alt="...">
                                                 </div>
                                             </td>
                                             <td>
-                                                {{ $gym->name }}
+                                                {{ $user->name }}
                                             </td>
                                             <td>
-                                                {{ $gym->description }}
+                                                {{ $user->email }}
                                             </td>
                                             <td>
-                                                {{ $gym->contact }}
+                                                {{ $user->location }}
                                             </td>
                                             <td>
-                                                {{ $gym->location }}
+                                                {{ $user->contact }}
                                             </td>
-                                            <td class="text-center">
-
-                                                <input type="checkbox" checked name="checkbox" class="bootstrap-switch"
-                                                    data-on-label="<i class='tim-icons icon-check-2'></i>"
-                                                    data-off-label="<i class='tim-icons icon-simple-remove'></i>" />
-                                            </td>
-                                            <td class="text-center">
-                                                {{ $gym->fees }}
-                                            </td>
-                                            <td class="text-center">
-                                                {{ $gym->timing_from }} - {{ $gym->timing_to }}
-                                            </td>
-                                            <td class="mx-auto text-center">
-                                                <a href="{{ route('gym.edit', $gym->id) }}"
+                                            <td>
+                                                <a href="{{ route('user.edit', $user->id) }}"
                                                     class="btn btn-primary btn-sm">Edit</a>
                                                 <button class="btn btn-danger btn-sm"
-                                                    onclick="confirmDelete('{{ route('gym.destroy', $gym->id) }}')">Delete</button>
+                                                    onclick="confirmDelete('{{ route('user.destroy', $user->id) }}')">Delete</button>
                                                 <script>
                                                     function confirmDelete(url) {
                                                         Swal.fire({

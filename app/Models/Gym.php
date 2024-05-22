@@ -14,6 +14,7 @@ class Gym extends Model
         'description',
         'contact',
         'location',
+        'thumbnail',
         'fees',
         'timing_from',
         'timing_to',
