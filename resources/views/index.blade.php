@@ -83,7 +83,7 @@
     <!-- Product area start here -->
     <section class="product-area">
         <div class="container">
-            <div
+            <div 
                 class="product__wrp pb-30 mb-65 bor-bottom d-flex flex-wrap align-items-center justify-content-xl-between justify-content-center">
                 <div class="section-header d-flex align-items-center wow fadeInUp" data-wow-delay=".1s">
                     <span class="title-icon mr-10"></span>
