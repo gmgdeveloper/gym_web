@@ -57,7 +57,7 @@
                                             <img src="{{ $user->profile ? asset($user->profile) : asset('../../assets/img/placeholder.jpg') }}"
                                                 alt="...">
                                         </div>
-                                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                        <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
                                         <div>
                                             <span class="btn btn-rose btn-round btn-file">
                                                 <span class="fileinput-new">Select image</span>

@@ -47,33 +47,9 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="pages/timeline.html">
-                                        <span class="sidebar-mini-icon">T</span>
-                                        <span class="sidebar-normal"> Timeline </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="pages/login.html">
-                                        <span class="sidebar-mini-icon">L</span>
-                                        <span class="sidebar-normal"> Login </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="pages/register.html">
+                                    <a href="{{ route('review.index') }}">
                                         <span class="sidebar-mini-icon">R</span>
-                                        <span class="sidebar-normal"> Register </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="pages/lock.html">
-                                        <span class="sidebar-mini-icon">LS</span>
-                                        <span class="sidebar-normal"> Lock Screen </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="pages/user.html">
-                                        <span class="sidebar-mini-icon">UP</span>
-                                        <span class="sidebar-normal"> User Profile </span>
+                                        <span class="sidebar-normal"> Reviews </span>
                                     </a>
                                 </li>
                             </ul>
@@ -272,3 +248,33 @@
                 </ul>
             </div>
         </div>
+        <script>
+            console.log('Script is running');
+
+            // Get the current URL path
+            var currentPath = window.location.pathname;
+
+            console.log('Current Path:', currentPath);
+
+            console.log('Sidebar Links:', sidebarLinks);
+
+
+
+            // Select all sidebar links
+            var sidebarLinks = document.querySelectorAll('.sidebar-wrapper .nav a');
+
+            // Loop through each sidebar link
+            sidebarLinks.forEach(function(link) {
+
+                console.log('Link HREF:', link.getAttribute('href'));
+                console.log('Parent Element:', link.parentNode);
+                // Check if the link's href matches the current URL path
+                if (link.getAttribute('href') === currentPath) {
+                    // Add the 'active' class to the parent <li> element
+                    link.parentNode.classList.add('active');
+
+                    console.log('Parent Element:', link.parentNode);
+
+                }
+            });
+        </script>

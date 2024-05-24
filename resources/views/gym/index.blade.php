@@ -64,8 +64,8 @@
                                                 {{ $gym->location }}
                                             </td>
                                             <td class="text-center">
-
-                                                <input type="checkbox" checked name="checkbox" class="bootstrap-switch"
+                                                <input type="checkbox" {{ $gym->is_featured == 1 ? 'checked' : '' }}
+                                                    name="checkbox" class="bootstrap-switch"
                                                     data-on-label="<i class='tim-icons icon-check-2'></i>"
                                                     data-off-label="<i class='tim-icons icon-simple-remove'></i>" />
                                             </td>

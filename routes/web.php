@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;   // Your local change
 use App\Http\Controllers\FrontController;  // Remote change
 use Illuminate\Support\Facades\Auth;
@@ -67,6 +68,29 @@ Route::middleware('auth')->group(function () {
 
     // Delete a specific gym
     Route::delete('deleteGym/{gym}', [GymController::class, 'destroy'])->name('gym.destroy');
+
+
+    // Show form to add a new review
+    Route::get('addReview', [ReviewController::class, 'create'])->name('review.create');
+
+    // Store the newly added review
+    Route::post('addReview', [ReviewController::class, 'store'])->name('review.store');
+
+    // Show all reviews
+    Route::get('seeReviews', [ReviewController::class, 'index'])->name('review.index');
+
+    // Show details of a specific review
+    Route::get('seeReview/{review}', [ReviewController::class, 'show'])->name('review.show');
+
+    // Show form to edit a specific review
+    Route::get('editReview/{review}', [ReviewController::class, 'edit'])->name('review.edit');
+
+    // Update a specific review
+    Route::post('updateReview/{review}', [ReviewController::class, 'update'])->name('review.update');
+
+    // Delete a specific review
+    Route::delete('deleteReview/{review}', [ReviewController::class, 'destroy'])->name('review.destroy');
+
 
     // Show form to add a new User
     Route::get('addUser', [UserController::class, 'create'])->name('user.create');

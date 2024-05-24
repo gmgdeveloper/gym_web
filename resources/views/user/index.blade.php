@@ -39,7 +39,7 @@
                                         <tr>
                                             <td>
                                                 <div class="image-container">
-                                                    <img width="100"
+                                                    <img width="100" class="img-circle"
                                                         src="{{ $user->profile ? asset($user->profile) : asset('../../assets/img/image_placeholder.jpg') }}"
                                                         alt="...">
                                                 </div>
