@@ -3,7 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserController;   // Your local change
+use App\Http\Controllers\FrontController;  // Remote change
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +19,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 // Route for showing login form
@@ -68,9 +68,6 @@ Route::middleware('auth')->group(function () {
     // Delete a specific gym
     Route::delete('deleteGym/{gym}', [GymController::class, 'destroy'])->name('gym.destroy');
 
-
-
-
     // Show form to add a new User
     Route::get('addUser', [UserController::class, 'create'])->name('user.create');
 
@@ -92,5 +89,15 @@ Route::middleware('auth')->group(function () {
     // Delete a specific User
     Route::delete('deleteUser/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });
+
+// Frontend routes
+Route::get('index', [FrontController::class, 'index'])->name('index');
+Route::get('about', [FrontController::class, 'about'])->name('about');
+Route::get('contact', [FrontController::class, 'contact'])->name('contact');
+Route::get('faq', [FrontController::class, 'faq'])->name('faq');
+Route::get('single_gym', [FrontController::class, 'single_gym'])->name('single_gym');
+Route::get('filter', [FrontController::class, 'filter'])->name('filter');
+Route::get('fregister', [FrontController::class, 'fregister'])->name('fregister');
+Route::get('flogin', [FrontController::class, 'flogin'])->name('flogin');
 
 require __DIR__ . '/auth.php';
