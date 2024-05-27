@@ -68,7 +68,7 @@
                                 <li>
                                     <a data-toggle="collapse" aria-expanded="false" href="#multicollapse">
                                         <span class="sidebar-mini-icon">MLT</span>
-                                        <span class="sidebar-normal"> Multi Level Collapse
+                                        <span class="sidebar-normal">Multi Level Collapse
                                             <b class="caret"></b>
                                         </span>
                                     </a>
