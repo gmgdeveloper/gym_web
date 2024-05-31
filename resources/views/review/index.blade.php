@@ -2,62 +2,119 @@
 
 <div class="content">
     <div class="row">
-        <div class="col-md-12 mb-5">
+        <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title pull-left mt-3">Reviews</h4>
-                    {{-- <a href="{{ route('review.create') }}" class="pull-right btn btn-fill btn-primary">Add New Review</a> --}}
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <span>{{ $error }}</span>
+                        @endforeach
+                    </div>
+                @endif
+
+                <!-- Auto-hide alerts after 3 seconds -->
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        setTimeout(function() {
+                            const alerts = document.querySelectorAll('.alert');
+                            alerts.forEach(alert => {
+                                alert.style.transition = 'opacity 0.5s ease';
+                                alert.style.opacity = '0';
+                                setTimeout(() => alert.remove(), 500); // Remove after fade out
+                            });
+                        }, 3000); // 3000 milliseconds = 3 seconds
+                    });
+                </script>
+
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title">Reviews</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table tablesorter" id="simple-table">
-                            <thead class="text-primary">
+                        <table id="datatable" class="table align-items-center table-flush">
+                            <thead class="">
                                 <tr>
                                     <th>Reviewer Profile</th>
                                     <th>Reviewer Name</th>
                                     <th>Feedback</th>
-                                    <th>Rating</th>
+                                    <th>Facilities</th>
+                                    <th>Coaching</th>
+                                    <th>Atmosphere</th>
+                                    <th>Overall</th>
                                     <th>Status</th>
-                                    <th>Rated Gym's name</th>
+                                    <th>Rated Gym's Name</th>
                                     <th>Gym Thumbnail</th>
                                     <th>Date</th>
+                                    <th class="text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($reviews as $review)
                                     <tr>
                                         <td>
-                                            <div class="image-container">
-                                                <img width="100"
-                                                    src="{{ $review->user->profile ? asset($review->user->profile) : asset('assets/img/image_placeholder.jpg') }}"
-                                                    alt="...">
+                                            <div class="avatar-group">
+                                                <a href="javascript:;" class="avatar avatar-sm rounded-circle"
+                                                    data-toggle="tooltip"
+                                                    data-original-title="{{ $review->user->name }}">
+                                                    <img alt="Image placeholder"
+                                                        src="{{ $review->user->profile ? asset($review->user->profile) : asset('assets/img/image_placeholder.jpg') }}">
+                                                </a>
                                             </div>
                                         </td>
                                         <td>{{ $review->user->name }}</td>
                                         <td>{{ $review->feedback }}</td>
-                                        <td>{{ $review->rating }}</td>
-                                        <td class="text-center">
+                                        <td>{{ $review->facilities_rating }}</td>
+                                        <td>{{ $review->coaching_rating }}</td>
+                                        <td>{{ $review->atmosphere_rating }}</td>
+                                        <td>{{ $review->overall_rating }}</td>
+                                        <td>
                                             <input type="checkbox" {{ $review->status == 1 ? 'checked' : '' }}
-                                                name="checkbox"
-                                                class="status-toggle-{{ $review->id }} bootstrap-switch"
-                                                data-review-id="{{ $review->id }}"
+                                                class="status-toggle" data-review-id="{{ $review->id }}"
                                                 data-on-label="<i class='tim-icons icon-check-2'></i>"
                                                 data-off-label="<i class='tim-icons icon-simple-remove'></i>" />
                                         </td>
-
                                         <td>{{ $review->gym->name }}</td>
-                                        <td class="text-center">
+                                        <td>
                                             <img src="{{ $review->gym->thumbnail ? asset($review->gym->thumbnail) : asset('assets/img/image_placeholder.jpg') }}"
                                                 alt="Gym Thumbnail" style="max-width: 100px;">
                                         </td>
                                         <td>{{ $review->created_at }}</td>
+                                        <td class="text-right">
+                                            <a href="{{ route('review.edit', $review->id) }}"
+                                                class="btn btn-link btn-warning btn-icon btn-sm edit"><i
+                                                    class="tim-icons icon-pencil"></i></a>
+                                            <button class="btn btn-link btn-danger btn-icon btn-sm remove"
+                                                onclick="confirmDelete('{{ route('review.destroy', $review->id) }}')"><i
+                                                    class="tim-icons icon-simple-remove"></i></button>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="text-center">No reviews found.</td>
+                                        <td colspan="12" class="text-center">No reviews found.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Reviewer Profile</th>
+                                    <th>Reviewer Name</th>
+                                    <th>Feedback</th>
+                                    <th>Facilities</th>
+                                    <th>Coaching</th>
+                                    <th>Atmosphere</th>
+                                    <th>Overall</th>
+                                    <th>Status</th>
+                                    <th>Rated Gym's Name</th>
+                                    <th>Gym Thumbnail</th>
+                                    <th>Date</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -69,34 +126,83 @@
 @include('includes.footer')
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var statusToggles = document.querySelectorAll('.status-toggle-{{ $review->id }}');
+    $(document).ready(function() {
+        $('#datatable').DataTable({
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
+
+        var statusToggles = document.querySelectorAll('.status-toggle');
 
         statusToggles.forEach(function(toggle) {
-            toggle.addEventListener('change', function() {
-                var status = this.checked ? 1 : 0;
-                var reviewId = this.dataset.reviewId;
+            $(toggle).bootstrapSwitch({
+                onSwitchChange: function(event, state) {
+                    var reviewId = $(this).data('review-id');
+                    var status = state ? 1 : 0;
 
-                // Simulate form submission with FormData
-                var formData = new FormData();
-                formData.append('_token', '{{ csrf_token() }}');
-                formData.append('status', status);
-
-                // Create a new XMLHttpRequest
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/updateReview/' + reviewId);
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        console.log(xhr.responseText);
-                    } else {
-                        console.error('Request failed. Status: ' + xhr.status);
-                    }
-                };
-                xhr.onerror = function() {
-                    console.error('Request failed');
-                };
-                xhr.send(formData);
+                    $.ajax({
+                        url: '/updateReview/' + reviewId,
+                        type: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            status: status
+                        },
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        error: function(xhr) {
+                            console.error('Request failed. Status: ' + xhr
+                                .status);
+                        }
+                    });
+                }
             });
         });
     });
+
+    function confirmDelete(url) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                // Create a form element
+                let form = document.createElement('form');
+                form.action = url;
+                form.method = 'POST';
+
+                // Add CSRF token input
+                let csrfToken = document.createElement('input');
+                csrfToken.type = 'hidden';
+                csrfToken.name = '_token';
+                csrfToken.value = '{{ csrf_token() }}'; // Get the CSRF token from Blade
+
+                // Add method input for DELETE
+                let method = document.createElement('input');
+                method.type = 'hidden';
+                method.name = '_method';
+                method.value = 'DELETE';
+
+                // Append inputs to the form
+                form.appendChild(csrfToken);
+                form.appendChild(method);
+
+                // Append form to the body and submit it
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
 </script>

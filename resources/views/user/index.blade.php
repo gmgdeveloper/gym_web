@@ -4,6 +4,31 @@
     <div class="row">
         <div class="col-md-12 mb-5">
             <div class="card ">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <span>{{ $error }}</span>
+                        @endforeach
+                    </div>
+                @endif
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        setTimeout(function() {
+                            const alerts = document.querySelectorAll('.alert');
+                            alerts.forEach(alert => {
+                                alert.style.transition = 'opacity 0.5s ease';
+                                alert.style.opacity = '0';
+                                setTimeout(() => alert.remove(), 500); // Remove after fade out
+                            });
+                        }, 3000); // 3000 milliseconds = 3 seconds
+                    });
+                </script>
                 <div class="card-header">
                     <h4 class="card-title pull-left mt-3"> users</h4>
                     <a href="{{ route('user.create') }}" class="pull-right btn btn-fill btn-primary">Add New user</a>
@@ -45,7 +70,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                {{ $user->name }}
+                                                <a href="{{ route('user.show', $user->id) }}">{{ $user->name }}</a>
                                             </td>
                                             <td>
                                                 {{ $user->email }}

@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Review;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class ReviewController extends Controller
 {
     public function index()
     {
-        // Load reviews with associated user and gym information
         $reviews = Review::with('user', 'gym')->orderByDesc('created_at')->get();
         return view('review.index', compact('reviews'));
     }
@@ -22,15 +20,16 @@ class ReviewController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the request data
         $validatedData = $request->validate([
             'feedback' => 'required|string',
-            'rating' => 'required|numeric',
+            'facilities_rating' => 'required|numeric|min:1|max:5',
+            'coaching_rating' => 'required|numeric|min:1|max:5',
+            'atmosphere_rating' => 'required|numeric|min:1|max:5',
+            'overall_rating' => 'required|numeric|min:1|max:5',
             'user_id' => 'required|exists:users,id',
             'gym_id' => 'required|exists:gyms,id',
         ]);
 
-        // Create review record
         $review = Review::create($validatedData);
 
         return redirect()->route('review.index')->with('success', 'Review created successfully!');
@@ -43,12 +42,10 @@ class ReviewController extends Controller
 
     public function update(Request $request, Review $review)
     {
-        // Validate the request data
         $validatedData = $request->validate([
             'status' => 'numeric',
         ]);
 
-        // Update review record
         $review->update($validatedData);
 
         return redirect()->route('review.index')->with('success', 'Review updated successfully!');

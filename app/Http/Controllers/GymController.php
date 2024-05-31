@@ -70,7 +70,7 @@ class GymController extends Controller
         $gym->thumbnail = $fileNameToStore; // Save the file path to the database
         $gym->save();
 
-        return redirect()->route('gym.index')->with('success', 'Gym created successfully!');
+        return redirect()->route('gym.index')->with('success', 'Gym added successfully!');
     }
 
     public function show(Gym $gym)
@@ -87,14 +87,15 @@ class GymController extends Controller
     {
         // Validate the request data
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'description' => 'required|string|max:255',
-            'contact' => 'required',
-            'location' => 'required',
-            'fees' => 'required',
-            'timing_from' => 'required',
-            'timing_to' => 'required',
+            'name' => 'nullable|string',
+            'description' => 'nullable|string|max:255',
+            'contact' => 'nullable',
+            'location' => 'nullable',
+            'fees' => 'nullable',
+            'timing_from' => 'nullable',
+            'timing_to' => 'nullable',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Max size 2MB
+            'is_featured' => 'nullable|boolean',
         ]);
 
         // If validation fails, redirect back with errors and old input
@@ -126,19 +127,116 @@ class GymController extends Controller
             $gym->thumbnail = 'thumbnails/' . $fileNameToStore;
         }
 
-        // Update gym record
-        $gym->name = $request->input('name');
-        $gym->description = $request->input('description');
-        $gym->contact = $request->input('contact');
-        $gym->location = $request->input('location');
-        $gym->fees = $request->input('fees');
-        $gym->timing_from = $request->input('timing_from');
-        $gym->timing_to = $request->input('timing_to');
-        $gym->is_featured = $request->input('is_featured', 0); // Default to 0 if not checked
+        // Update gym record only if fields are present in the request
+        if ($request->has('name')) {
+            $gym->name = $request->input('name');
+        }
+        if ($request->has('description')) {
+            $gym->description = $request->input('description');
+        }
+        if ($request->has('contact')) {
+            $gym->contact = $request->input('contact');
+        }
+        if ($request->has('location')) {
+            $gym->location = $request->input('location');
+        }
+        if ($request->has('fees')) {
+            $gym->fees = $request->input('fees');
+        }
+        if ($request->has('timing_from')) {
+            $gym->timing_from = $request->input('timing_from');
+        }
+        if ($request->has('timing_to')) {
+            $gym->timing_to = $request->input('timing_to');
+        }
+        if ($request->has('is_featured')) {
+            $gym->is_featured = $request->input('is_featured');
+        } else {
+            $gym->is_featured = 0;
+        }
+
         $gym->save();
 
         return redirect()->route('gym.index')->with('success', 'Gym updated successfully!');
     }
+
+    public function updateGymProfile(Request $request, $id)
+    {
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'name' => 'nullable|string',
+            'description' => 'nullable|string|max:255',
+            'contact' => 'nullable',
+            'location' => 'nullable',
+            'fees' => 'nullable',
+            'timing_from' => 'nullable',
+            'timing_to' => 'nullable',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Max size 2MB
+            'is_featured' => 'nullable|boolean',
+        ]);
+
+        // If validation fails, redirect back with errors and old input
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Find the gym by ID
+        $gym = Gym::find($id);
+
+        // Handle image upload
+        if ($request->hasFile('thumbnail')) {
+            // Delete the old image if it exists
+            if ($gym->thumbnail && file_exists(public_path($gym->thumbnail))) {
+                unlink(public_path($gym->thumbnail));
+            }
+
+            // Get the file name with extension
+            $fileNameWithExt = $request->file('thumbnail')->getClientOriginalName();
+            // Get just the file name
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            // Get just the extension
+            $extension = $request->file('thumbnail')->getClientOriginalExtension();
+            // File name to store
+            $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
+            // Move the file to public/thumbnails
+            $path = $request->file('thumbnail')->move(public_path('thumbnails'), $fileNameToStore);
+            // Save the path in the database
+            $gym->thumbnail = 'thumbnails/' . $fileNameToStore;
+        }
+
+        // Update gym record only if fields are present in the request
+        if ($request->has('name')) {
+            $gym->name = $request->input('name');
+        }
+        if ($request->has('description')) {
+            $gym->description = $request->input('description');
+        }
+        if ($request->has('contact')) {
+            $gym->contact = $request->input('contact');
+        }
+        if ($request->has('location')) {
+            $gym->location = $request->input('location');
+        }
+        if ($request->has('fees')) {
+            $gym->fees = $request->input('fees');
+        }
+        if ($request->has('timing_from')) {
+            $gym->timing_from = $request->input('timing_from');
+        }
+        if ($request->has('timing_to')) {
+            $gym->timing_to = $request->input('timing_to');
+        }
+        if ($request->has('is_featured')) {
+            $gym->is_featured = $request->input('is_featured');
+            $gym->is_featured = 1;
+        } else {
+            $gym->is_featured = 0;
+        }
+        $gym->save();
+
+        return redirect()->route('gym.show', $id)->with('success', 'Gym updated successfully!');
+    }
+
 
 
     public function destroy($id)

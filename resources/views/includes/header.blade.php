@@ -129,7 +129,8 @@
                         </a>
                         <ul class="dropdown-menu dropdown-navbar">
                             <li class="nav-link">
-                                <a href="javascript:void(0)" class="nav-item dropdown-item">Profile</a>
+                                <a href="{{ route('user.profile', auth()->user()->id) }}"
+                                    class="nav-item dropdown-item">Profile</a>
                             </li>
                             <li class="nav-link">
                                 <a href="javascript:void(0)" class="nav-item dropdown-item">Settings</a>

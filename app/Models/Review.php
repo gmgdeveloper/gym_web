@@ -11,23 +11,20 @@ class Review extends Model
 
     protected $fillable = [
         'feedback',
-        'rating',
+        'facilities_rating',
+        'coaching_rating',
+        'atmosphere_rating',
+        'overall_rating',
         'status',
         'user_id',
         'gym_id',
     ];
 
-    /**
-     * Get the user that owns the review.
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Get the gym that owns the review.
-     */
     public function gym()
     {
         return $this->belongsTo(Gym::class);

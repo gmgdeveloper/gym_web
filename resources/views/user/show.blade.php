@@ -134,7 +134,7 @@
                     </p>
                 </div>
                 <div class="card-footer text-center"> <!-- Added text-center class -->
-                    <a href="{{ route('dashboard') }}" class="mx-auto btn btn-fill btn-primary">Back</a>
+                    <a href="{{ route('user.index') }}" class="mx-auto btn btn-fill btn-primary">Back</a>
                     <!-- Removed text-center class -->
                 </div>
 
