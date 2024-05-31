@@ -6,7 +6,6 @@
             <h1>Edit Review</h1>
             <form action="{{ route('review.update', $review->id) }}" method="POST">
                 @csrf
-                @method('PUT')
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title pull-left mt-3">Review Info</h4>

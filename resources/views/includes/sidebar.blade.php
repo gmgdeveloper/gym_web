@@ -58,16 +58,16 @@
                     </li>
                     <li>
                         <a data-toggle="collapse" href="#componentsExamples"
-                            class="{{ request()->is('components*') ? 'active' : '' }}">
+                            class="{{ request()->is('mainpage') ? 'active' : '' }}">
                             <i class="tim-icons icon-tablet-2"></i>
                             <p>
                                 Frontend
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse {{ request()->is('components*') ? 'show' : '' }}" id="componentsExamples">
+                        <div class="collapse {{ request()->is('mainpage') ? 'show' : '' }}" id="componentsExamples">
                             <ul class="nav">
-                                <li class="{{ request()->is('components/buttons') ? 'active' : '' }}">
+                                <li class="{{ request()->is('mainpage') ? 'active' : '' }}">
                                     <a href="{{ route('mainpage.edit') }}">
                                         <span class="sidebar-mini-icon">HS</span>
                                         <span class="sidebar-normal"> Hero Section </span>

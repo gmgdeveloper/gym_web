@@ -117,8 +117,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('import', [ImportController::class, 'import'])->name('gyms.import');
 
-    Route::get('/customize/mainPage', [CustomizeFrontendController::class, 'editMainPage'])->name('mainpage.edit');
-    Route::put('/mainpage/update', [CustomizeFrontendController::class, 'updateMainPage'])->name('mainpage.update');
+    Route::get('Add-Mainpage', [CustomizeFrontendController::class, 'editMainPage'])->name('mainpage.create');
+    Route::get('customizeMainPage', [CustomizeFrontendController::class, 'editMainPage'])->name('mainpage.edit');
+    Route::post('mainpage/update', [CustomizeFrontendController::class, 'updateMainPage'])->name('mainpage.update');
 });
 
 // Frontend routes

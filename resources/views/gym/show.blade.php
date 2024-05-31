@@ -133,11 +133,11 @@
                             <div class="col-md-12 col-sm-12 pull-right">
                                 <h4 class="card-title">Thumbnail</h4>
                                 <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail img-circle">
-                                        <img src="{{ $gym->thumbnail ? asset($gym->thumbnail) : asset('assets/img/placeholder.jpg') }}"
+                                    <div class="fileinput-new thumbnail">
+                                        <img src="{{ $gym->thumbnail ? asset($gym->thumbnail) : asset('assets/img/image_placeholder.jpg') }}"
                                             alt="...">
                                     </div>
-                                    <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail"></div>
                                     <div>
                                         <span class="btn btn-rose btn-round btn-file">
                                             <span class="fileinput-new">Select image</span>
@@ -176,7 +176,7 @@
                     <a href="{{ route('gym.index') }}" class="mx-auto btn btn-fill btn-primary">Back</a>
                     <!-- Removed text-center class -->
                 </div>
-            </div>
+            </div>6
 
             <div class="card mt-4">
                 <div class="card-header">
