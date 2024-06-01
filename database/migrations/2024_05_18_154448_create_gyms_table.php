@@ -15,6 +15,7 @@ class CreateGymsTable extends Migration
             $table->string('contact');
             $table->string('location');
             $table->boolean('is_featured')->default(0)->nullable();
+            $table->string('thumbnail')->nullable();
             $table->string('fees')->nullable();
             $table->string('timing_from')->nullable();
             $table->string('timing_to')->nullable();

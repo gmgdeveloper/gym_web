@@ -3,7 +3,7 @@
 
 <div class="content">
     <div class="row">
-        <div class="col-12">
+        {{-- <div class="col-12">
             <div class="card card-chart">
                 <div class="card-header">
                     <div class="row">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="col-lg-3 col-md-6">
             <div class="card card-stats">
                 <div class="card-body">
@@ -145,7 +145,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        {{-- <div class="col-lg-4">
             <div class="card card-chart">
                 <div class="card-header">
                     <h5 class="card-category">Total Shipments</h5>
@@ -183,7 +183,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     <div class="row">
         <div class="col-lg-5">

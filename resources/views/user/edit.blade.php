@@ -1,17 +1,16 @@
 @include('.includes.header')
 <!-- Include Flatpickr CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
 <div class="content">
     <div class="row">
         <div class="col-md-12">
-            <h1>Edit Gym</h1>
-            <form action="{{ route('gym.update', $gym->id) }}" method="POST" enctype="multipart/form-data">
+            <h1>Edit User</h1>
+            <form action="{{ route('user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title pull-left mt-3">Basic Info</h4>
-                        <a href="{{ route('gym.index') }}" class="pull-right btn btn-fill btn-primary">Back</a>
+                        <a href="{{ route('user.index') }}" class="pull-right btn btn-fill btn-primary">Back</a>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -21,7 +20,7 @@
                                 <div class="form-group">
                                     <input type="text" id="name" name="name"
                                         class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
-                                        placeholder="EXAMPLE: Fitness" value="{{ old('name', $gym->name) }}">
+                                        placeholder="EXAMPLE: Fitness" value="{{ old('name', $user->name) }}">
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -32,38 +31,38 @@
                                 <div class="form-group">
                                     <input type="text" id="contact" name="contact"
                                         class="form-control {{ $errors->has('contact') ? 'is-invalid' : '' }}"
-                                        placeholder="EXAMPLE: 09123456789" value="{{ old('contact', $gym->contact) }}">
+                                        placeholder="EXAMPLE: 09123456789" value="{{ old('contact', $user->contact) }}">
                                     @error('contact')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
-                                <label for="description">Description</label>
+                                <label for="password">Password</label>
                                 <div class="form-group">
-                                    <textarea id="description" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description"
-                                        placeholder="EXAMPLE: This is one of the best gyms if you want to lose weight" cols="30" rows="5">{{ old('description', $gym->description) }}</textarea>
-                                    @error('description')
+                                    <input type="password" id="password" name="password"
+                                        class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                                        placeholder="Password" value="{{ old('password') }}">
+                                    @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
-
-                                <!-- Thumbnail -->
+                                <!-- Profile -->
                                 <div class="col-md-12 col-sm-12">
-                                    <h4 class="card-title">Thumbnail</h4>
+                                    <h4 class="card-title">Profile</h4>
                                     <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                                        <div class="fileinput-new thumbnail">
-                                            <img src="{{ $gym->thumbnail ? asset($gym->thumbnail) : asset('../../assets/img/image_placeholder.jpg') }}"
+                                        <div class="fileinput-new thumbnail img-circle">
+                                            <img src="{{ $user->profile ? asset($user->profile) : asset('../../assets/img/placeholder.jpg') }}"
                                                 alt="...">
                                         </div>
-                                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                        <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
                                         <div>
                                             <span class="btn btn-rose btn-round btn-file">
                                                 <span class="fileinput-new">Select image</span>
                                                 <span class="fileinput-exists">Change</span>
-                                                <input type="file" name="thumbnail" />
+                                                <input type="file" name="profile" />
                                             </span>
                                             <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
                                                 data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
@@ -72,65 +71,26 @@
                                 </div>
 
                             </div>
-                            <!-- Fees, Timing, and Location Fields -->
+
                             <div class="col-md-6">
-                                <label for="fees">Fees</label>
+                                <label for="email">Email</label>
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <i class="tim-icons icon-money-coins"></i>
+                                            <i class="tim-icons icon-email-85"></i>
                                         </div>
                                     </div>
-                                    <input type="number" id="fees"
-                                        class="form-control {{ $errors->has('fees') ? 'is-invalid' : '' }}"
-                                        placeholder="Fees" name="fees" value="{{ old('fees', $gym->fees) }}">
-                                    @error('fees')
+                                    <input type="email" id="email"
+                                        class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                                        placeholder="email" name="email" value="{{ old('email', $user->email) }}">
+                                    @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
-                                <!-- Timing Fields -->
-                                <label for="timing_from">Timing From</label>
-                                <div
-                                    class="form-group input-group mt-3 {{ $errors->has('timing_from') ? 'has-danger' : '' }}">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="tim-icons icon-compass-05"></i>
-                                        </div>
-                                    </div>
-                                    <input type="text" id="timing_from"
-                                        class="form-control timepicker {{ $errors->has('timing_from') ? 'is-invalid' : (old('timing_from') ? 'is-valid' : '') }}"
-                                        name="timing_from" placeholder="Timing From"
-                                        value="{{ old('timing_from', $gym->timing_from) }}">
-                                    @if ($errors->has('timing_from'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('timing_from') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                                <label for="timing_to">Timing To</label>
-                                <div
-                                    class="form-group input-group mt-3 {{ $errors->has('timing_to') ? 'has-danger' : '' }}">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="tim-icons icon-compass-05"></i>
-                                        </div>
-                                    </div>
-                                    <input type="text" id="timing_to"
-                                        class="form-control timepicker {{ $errors->has('timing_to') ? 'is-invalid' : (old('timing_to') ? 'is-valid' : '') }}"
-                                        name="timing_to" placeholder="Timing To"
-                                        value="{{ old('timing_to', $gym->timing_to) }}">
-                                    @if ($errors->has('timing_to'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('timing_to') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                                <!-- Location Field -->
                                 <label for="location">Address</label>
-                                <div
-                                    class="form-group input-group mt-3 {{ $errors->has('location') ? 'has-danger' : '' }}">
+                                <div class="form-group input-group {{ $errors->has('location') ? 'has-danger' : '' }}">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i class="tim-icons icon-square-pin"></i>
@@ -139,24 +99,32 @@
                                     <input type="text" id="location"
                                         class="form-control {{ $errors->has('location') ? 'is-invalid' : (old('location') ? 'is-valid' : '') }}"
                                         name="location" placeholder="Address"
-                                        value="{{ old('location', $gym->location) }}">
+                                        value="{{ old('location', $user->location) }}">
                                     @if ($errors->has('location'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('location') }}</strong>
                                         </span>
                                     @endif
                                 </div>
-
-                                <!-- Featured Checkbox -->
-                                <div class="form-check mt-4 ml-2">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" name="is_featured" value="1"
-                                            type="checkbox"
-                                            {{ old('is_featured', $gym->is_featured) ? 'checked' : '' }}>
-                                        <span class="form-check-sign"></span>
-                                        Featured
-                                    </label>
+                                <label for="password_confirmation">Confirm password</label>
+                                <div
+                                    class="form-group input-group {{ $errors->has('password_confirmation') ? 'has-danger' : '' }}">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="tim-icons icon-square-pin"></i>
+                                        </div>
+                                    </div>
+                                    <input type="password" id="password_confirmation"
+                                        class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : (old('password_confirmation') ? 'is-valid' : '') }}"
+                                        name="password_confirmation" placeholder="password_confirmation"
+                                        value="{{ old('password_confirmation') }}">
+                                    @if ($errors->has('password_confirmation'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
+
                             </div>
                         </div>
                     </div>

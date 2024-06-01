@@ -20,35 +20,7 @@
                 <span class="navbar-toggler-bar navbar-kebab"></span>
                 <span class="navbar-toggler-bar navbar-kebab"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navigation">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a href="{{ route('register') }}" class="nav-link text-primary">
-                            <i class="tim-icons icon-minimal-left"></i> Register
-                        </a>
-                    </li>
-                    {{-- <li class="nav-item ">
-                        <a href="register.html" class="nav-link">
-                            <i class="tim-icons icon-laptop"></i> Register
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a href="login.html" class="nav-link">
-                            <i class="tim-icons icon-single-02"></i> Login
-                        </a>
-                    </li>
-                    <li class="nav-item  active ">
-                        <a href="pricing.html" class="nav-link">
-                            <i class="tim-icons icon-coins"></i> Pricing
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a href="lock.html" class="nav-link">
-                            <i class="tim-icons icon-lock-circle"></i> Lock
-                        </a>
-                    </li> --}}
-                </ul>
-            </div>
+
         </div>
     </nav>
     <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal"
@@ -100,12 +72,6 @@
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary btn-lg btn-block mb-3">Login</button>
-                                    <div class="pull-left">
-                                        <h6>
-                                            <a href="{{ route('register') }}" class="link footer-link">Create
-                                                Account</a>
-                                        </h6>
-                                    </div>
                                 </div>
                             </div>
                         </form>
