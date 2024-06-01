@@ -70,15 +70,16 @@ Route::middleware('auth')->group(function () {
 
 // frontend routes
 Route::get('index', [FrontController::class, 'index'])->name('index');
-Route::get('about', [FrontController::class, 'about'])->name('about');
-Route::get('contact', [FrontController::class, 'contact'])->name('contact');
-Route::get('faq', [FrontController::class, 'faq'])->name('faq');
+Route::get('search', [FrontController::class, 'about'])->name('about');
+Route::get('gym_rating', [FrontController::class, 'contact'])->name('contact');
+Route::get('compare', [FrontController::class, 'faq'])->name('faq');
 Route::get('single_gym', [FrontController::class, 'single_gym'])->name('single_gym');
-Route::get('filter', [FrontController::class, 'filter'])->name('filter');
+Route::get('gym', [FrontController::class, 'filter'])->name('filter');
 Route::get('fregister', [FrontController::class, 'fregister'])->name('fregister');
 Route::get('flogin', [FrontController::class, 'flogin'])->name('flogin');
-
-
+Route::get('user_pannel', [FrontController::class, 'user_pannel'])->name('user_pannel');
+Route::get('terms', [FrontController::class, 'terms'])->name('terms');
+Route::get('privacy', [FrontController::class, 'privacy'])->name('privacy');
 
 
 

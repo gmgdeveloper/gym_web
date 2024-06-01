@@ -16,11 +16,11 @@ class FrontController extends Controller
     }
     public function contact()
     {
-        return view('frontend.contact' );
+        return view('frontend.gym_rating' );
     }
     public function faq()
     {
-        return view('frontend.faq' );
+        return view('frontend.compare' );
     }
     public function single_gym()
     {
@@ -37,5 +37,17 @@ class FrontController extends Controller
     public function flogin()
     {
         return view('frontend.flogin' );
+    }
+    public function user_pannel()
+    {
+        return view('frontend.user_pannel' );
+    }
+     public function terms()
+    {
+        return view('frontend.terms_condetions' );
+    }
+      public function privacy()
+    {
+        return view('frontend.privacy' );
     }
 }
