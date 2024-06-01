@@ -57,8 +57,13 @@
                                                 <i class="tim-icons icon-email-85"></i>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Email" name="email"
-                                            value="{{ old('email') }}">
+                                        <input type="text" class="form-control @error('email') is-invalid @enderror"
+                                            placeholder="Email" name="email" value="{{ old('email') }}">
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -67,7 +72,12 @@
                                             </div>
                                         </div>
                                         <input type="password" placeholder="Password" name="password"
-                                            class="form-control">
+                                            class="form-control @error('password') is-invalid @enderror">
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="card-footer">
@@ -80,3 +90,6 @@
             </div>
 
             @include('..includes.authFooter')
+        </div>
+    </div>
+</body>

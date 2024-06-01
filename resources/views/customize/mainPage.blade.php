@@ -34,14 +34,13 @@
                     <h5 class="title">Edit Main Page</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('mainpage.update', $mainPage->id) }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('mainpage.update', $mainPage->id) }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-md-12 pr-md-1">
                                 <div class="form-group">
                                     <label>Section 1 - Heading 1</label>
-                                    <input type="text" name="s1_heading_1" class="form-control"
+                                    <input data-toggle type="text" name="s1_heading_1" class="form-control"
                                         value="{{ old('s1_heading_1', $mainPage->s1_heading_1) }}">
                                     @error('s1_heading_1')
                                         <span class="invalid-feedback" role="alert">
@@ -180,7 +179,7 @@
                             <h4 class="card-title">Section 1 - Background Image</h4>
                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                 <div class="fileinput-new thumbnail">
-                                    <img src="{{ $mainPage->s1_bg_img ? asset($mainPage->s1_bg_img) : asset('../../assets/img/image_placeholder.jpg') }}"
+                                    <img src="{{ $mainPage->s1_bg_img ? asset($mainPage->s1_bg_img) : asset('assets/img/image_placeholder.jpg') }}"
                                         alt="{{ $mainPage->s1_bg_img }}">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"></div>
@@ -190,14 +189,19 @@
                                         <span class="fileinput-exists">Change</span>
                                         <input type="file" name="s1_bg_img" />
                                     </span>
-                                    <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
-                                        data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                                    <a href="#" class="btn btn-danger btn-round fileinput-exists"
+                                        data-dismiss="fileinput">
+                                        <i class="fa fa-times"></i> Remove
+                                    </a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-12 col-sm-12 text-center">
-                            <h4 class="card-title">Section 2</h4>
+                        <div class="row">
+
+                            <div class="col-md-12 col-sm-12 text-center">
+                                <h4 class="card-title">Section 2</h4>
+                            </div>
                         </div>
 
                         <div class="col-md-4 col-sm-12 pull-right text-center">
