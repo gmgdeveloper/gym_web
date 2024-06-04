@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
     <title>
-        Black Dashboard PRO by Creative Tim
+        RATE MY GYM - LOGIN
     </title>
 
 
@@ -56,5 +56,3 @@
 
     <link href="../../assets/demo/demo.css" rel="stylesheet" />
 </head>
-
-

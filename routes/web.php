@@ -4,13 +4,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\UserController;   // Your local change
-use App\Http\Controllers\FrontController;  // Remote change
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\CustomizeFrontendController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -38,9 +37,9 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth', 'admin_check'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'admin_check'])->group(function () {
 
     // Show form to add a new gym
     Route::get('addGym', [GymController::class, 'create'])->name('gym.create');
@@ -120,6 +119,12 @@ Route::middleware('auth')->group(function () {
     Route::get('customizeMainPage', [CustomizeFrontendController::class, 'editMainPage'])->name('mainpage.edit');
     Route::post('mainpage/store', [CustomizeFrontendController::class, 'storeMainPage'])->name('mainpage.store');
     Route::post('mainpage/update', [CustomizeFrontendController::class, 'updateMainPage'])->name('mainpage.update');
+    Route::get('/terms-and-conditions', [CustomizeFrontendController::class, 'editTermsPage'])->name('terms.edit');
+    Route::post('/terms-and-conditions/store', [CustomizeFrontendController::class, 'storeTermsPage'])->name('terms.store');
+    Route::post('/terms-and-conditions/update', [CustomizeFrontendController::class, 'updateTermsPage'])->name('terms.update');
+    Route::get('/privacy-policy', [CustomizeFrontendController::class, 'editPrivacyPage'])->name('privacy.edit');
+    Route::post('/privacy-policy/store', [CustomizeFrontendController::class, 'storePrivacyPage'])->name('privacy.store');
+    Route::post('/privacy-policy/update', [CustomizeFrontendController::class, 'updatePrivacyPage'])->name('privacy.update');
 });
 
 // Frontend routes

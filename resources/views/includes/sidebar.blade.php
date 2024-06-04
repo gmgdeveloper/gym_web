@@ -13,7 +13,7 @@
                         RMG
                     </a>
                     <a href="{{ route('dashboard') }}" class="simple-text logo-normal">
-                        Rate My Gym
+                        Rate My Cheer Gym
                     </a>
                 </div>
                 <ul class="nav">
@@ -24,7 +24,7 @@
                         </a>
                     </li>
                     <li>
-                        <a data-toggle="collapse" href="#pagesExamples"
+                        <a data-toggle="collapse" href="#backendExamples"
                             class="{{ request()->is('gym*', 'user*', 'review*') ? 'active' : '' }}">
                             <i class="tim-icons icon-laptop"></i>
                             <p>
@@ -33,7 +33,7 @@
                             </p>
                         </a>
                         <div class="collapse {{ request()->is('gym*', 'user*', 'review*') ? 'show' : '' }}"
-                            id="pagesExamples">
+                            id="backendExamples">
                             <ul class="nav">
                                 <li class="{{ request()->is('gym') ? 'active' : '' }}">
                                     <a href="{{ route('gym.index') }}">
@@ -57,20 +57,33 @@
                         </div>
                     </li>
                     <li>
-                        <a data-toggle="collapse" href="#componentsExamples"
-                            class="{{ request()->is('mainpage') ? 'active' : '' }}">
+                        <a data-toggle="collapse" href="#frontendExamples"
+                            class="{{ request()->is('mainpage', 'terms', 'privacy') ? 'active' : '' }}">
                             <i class="tim-icons icon-tablet-2"></i>
                             <p>
                                 Frontend
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse {{ request()->is('mainpage') ? 'show' : '' }}" id="componentsExamples">
+                        <div class="collapse {{ request()->is('mainpage', 'terms', 'privacy') ? 'show' : '' }}"
+                            id="frontendExamples">
                             <ul class="nav">
                                 <li class="{{ request()->is('mainpage') ? 'active' : '' }}">
                                     <a href="{{ route('mainpage.edit') }}">
-                                        <span class="sidebar-mini-icon">HS</span>
-                                        <span class="sidebar-normal"> Hero Section </span>
+                                        <span class="sidebar-mini-icon">C-MP</span>
+                                        <span class="sidebar-normal"> Customize Mainpage </span>
+                                    </a>
+                                </li>
+                                <li class="{{ request()->is('terms') ? 'active' : '' }}">
+                                    <a href="{{ route('terms.edit') }}">
+                                        <span class="sidebar-mini-icon">C-T&C</span>
+                                        <span class="sidebar-normal"> Customize Terms & Conditions </span>
+                                    </a>
+                                </li>
+                                <li class="{{ request()->is('privacy') ? 'active' : '' }}">
+                                    <a href="{{ route('privacy.edit') }}">
+                                        <span class="sidebar-mini-icon">C-PP</span>
+                                        <span class="sidebar-normal">Customize Privacy Policy </span>
                                     </a>
                                 </li>
                             </ul>

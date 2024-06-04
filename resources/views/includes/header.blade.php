@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('../assets/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('../assets/img/favicon.png') }}">
     <title>
-        Black Dashboard PRO by Creative Tim
+        RATE MY ChEER GYM - DASHBOARD
     </title>
 
 
@@ -74,7 +74,7 @@
                         <span class="navbar-toggler-bar bar3"></span>
                     </button>
                 </div>
-                <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
+                <a class="navbar-brand" href="{{ route('dashboard') }}">Dashboard</a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                 aria-expanded="false" aria-label="Toggle navigation">

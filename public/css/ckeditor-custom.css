@@ -1,0 +1,33 @@
+/* public/css/ckeditor-custom.css */
+.cke_editable {
+    background-color: #27293d !important;
+    color: #ffffff !important;
+}
+
+.cke_top {
+    background-color: #333333 !important;
+}
+
+.cke_toolgroup {
+    background-color: #444444 !important;
+}
+
+.cke_button {
+    background-color: #555555 !important;
+    border-color: #666666 !important;
+}
+
+.cke_button:hover {
+    background-color: #666666 !important;
+}
+
+.cke_dialog_ui_input_text,
+.cke_dialog_ui_input_select {
+    background-color: #27293d !important;
+    color: #ffffff !important;
+}
+
+.cke_dialog_ui_button {
+    background-color: #444444 !important;
+    border-color: #666666 !important;
+}

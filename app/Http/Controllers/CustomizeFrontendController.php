@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\MainPage;
+use App\Models\PrivacyPolicy;
+use App\Models\Terms;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -10,9 +12,14 @@ use Illuminate\Http\Request;
 class CustomizeFrontendController extends Controller
 {
 
-    public function createMainPage()
+    public function editMainPage()
     {
-        return view('customize.createMainPage');
+        try {
+            $mainPage = MainPage::firstOrFail(); // Assuming there's only one main page record
+            return view('customize.mainPage', compact('mainPage'));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return view('customize.createMainPage');
+        }
     }
 
     public function storeMainPage(Request $request)
@@ -76,17 +83,6 @@ class CustomizeFrontendController extends Controller
 
         return redirect()->route('mainpage.edit')->with('success', 'Main page created successfully');
     }
-
-    public function editMainPage()
-    {
-        try {
-            $mainPage = MainPage::firstOrFail(); // Assuming there's only one main page record
-            return view('customize.mainPage', compact('mainPage'));
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return view('customize.createMainPage');
-        }
-    }
-
 
     public function updateMainPage(Request $request)
     {
@@ -152,6 +148,118 @@ class CustomizeFrontendController extends Controller
         return redirect()->route('mainpage.edit')->with('success', 'Main page updated successfully');
     }
 
+    public function editTermsPage()
+    {
+        try {
+            $terms = Terms::firstOrFail(); // Assuming there's only one main page record
+            return view('customize.terms.edit', compact('terms'));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return view('customize.terms.create');
+        }
+    }
+
+    public function storeTermsPage(Request $request)
+    {
+        // Validate the form input
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        // Create a new Terms instance
+        $terms = new Terms();
+        $terms->title = $request->title;
+        $terms->content = $request->content;
+
+        // Save the new terms and conditions to the database
+        $terms->save();
+
+        return redirect()->back()->with('success', 'Terms and conditions created successfully.');
+    }
+
+
+    public function updateTermsPage(Request $request)
+    {
+        $request->validate([
+            'title' => 'nullable|string|max:255',
+            'content' => 'nullable|string',
+        ]);
+
+        // Get the first Terms record
+        $terms = Terms::first();
+
+        // Check if the title field is present in the request
+        if ($request->has('title')) {
+            $terms->title = $request->title;
+        }
+
+        // Check if the content field is present in the request
+        if ($request->has('content')) {
+            $terms->content = $request->content;
+        }
+
+        // Save the updated terms and conditions to the database
+        $terms->save();
+
+        return redirect()->back()->with('success', 'Terms and conditions updated successfully.');
+    }
+
+
+    public function editPrivacyPage()
+    {
+        try {
+            $terms = PrivacyPolicy::firstOrFail(); // Assuming there's only one main page record
+            return view('customize.privacy.edit', compact('terms'));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return view('customize.privacy.create');
+        }
+    }
+
+    public function storePrivacyPage(Request $request)
+    {
+        // Validate the form input
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        // Create a new Terms instance
+        $terms = new PrivacyPolicy();
+        $terms->title = $request->title;
+        $terms->content = $request->content;
+
+        // Save the new terms and conditions to the database
+        $terms->save();
+
+        return redirect()->back()->with('success', 'Privacy Policy created successfully.');
+    }
+
+
+    public function updatePrivacyPage(Request $request)
+    {
+        $request->validate([
+            'title' => 'nullable|string|max:255',
+            'content' => 'nullable|string',
+        ]);
+
+        // Get the first Terms record
+        $terms = PrivacyPolicy::first();
+
+        // Check if the title field is present in the request
+        if ($request->has('title')) {
+            $terms->title = $request->title;
+        }
+
+        // Check if the content field is present in the request
+        if ($request->has('content')) {
+            $terms->content = $request->content;
+        }
+
+        // Save the updated terms and conditions to the database
+        $terms->save();
+
+        return redirect()->back()->with('success', 'Privacy Policy updated successfully.');
+    }
 
     // Add methods for other pages if necessary
 }
