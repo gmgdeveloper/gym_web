@@ -35,8 +35,28 @@ Route::post('login', [AuthController::class, 'login']);
 // Route for logging out
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
+use App\Models\Gym;
+use App\Models\Review;
+use App\Models\User;
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    // Fetch data
+    $totalGyms = Gym::count();
+    $totalReviews = Review::count();
+    $totalUsers = User::count();
+    $recentUsers = User::orderBy('created_at', 'desc')->take(5)->get();
+    $recentGyms = Gym::orderBy('created_at', 'desc')->take(5)->get();
+    $recentReviews = Review::orderBy('created_at', 'desc')->take(5)->get();
+
+    // Pass data to the view
+    return view('dashboard', [
+        'totalGyms' => $totalGyms,
+        'totalReviews' => $totalReviews,
+        'totalUsers' => $totalUsers,
+        'recentUsers' => $recentUsers,
+        'recentGyms' => $recentGyms,
+        'recentReviews' => $recentReviews,
+    ]);
 })->middleware(['auth', 'admin_check'])->name('dashboard');
 
 Route::middleware(['auth', 'admin_check'])->group(function () {
@@ -109,7 +129,7 @@ Route::middleware(['auth', 'admin_check'])->group(function () {
     Route::get('editUser/{user}', [UserController::class, 'edit'])->name('user.edit');
 
     // Update a specific User
-    Route::post('updateUser/{user}', [UserController::class, 'updateProfile'])->name('user.update');
+    Route::post('updateUser/{user}', [UserController::class, 'update'])->name('user.update');
 
     // Delete a specific User
     Route::delete('deleteUser/{user}', [UserController::class, 'destroy'])->name('user.destroy');

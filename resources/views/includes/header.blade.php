@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('../assets/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('../assets/img/favicon.png') }}">
     <title>
-        RATE MY ChEER GYM - DASHBOARD
+        RATE MY CHEER GYM - DASHBOARD
     </title>
 
 
@@ -84,13 +84,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navigation">
                 <ul class="navbar-nav ml-auto">
-                    <li class="search-bar input-group">
+                    {{-- <li class="search-bar input-group">
                         <button class="btn btn-link" id="search-button" data-toggle="modal"
                             data-target="#searchModal"><i class="tim-icons icon-zoom-split"></i>
                             <span class="d-lg-none d-md-block">Search</span>
                         </button>
-                    </li>
-                    <li class="dropdown nav-item">
+                    </li> --}}
+                    {{-- <li class="dropdown nav-item">
                         <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <div class="notification d-none d-lg-block d-xl-block"></div>
                             <i class="tim-icons icon-sound-wave"></i>
@@ -116,7 +116,7 @@
                                 <a href="javascript:void(0)" class="nav-item dropdown-item">Another one</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="dropdown nav-item">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <div class="photo">
@@ -133,9 +133,9 @@
                                 <a href="{{ route('user.profile', auth()->user()->id) }}"
                                     class="nav-item dropdown-item">Profile</a>
                             </li>
-                            <li class="nav-link">
+                            {{-- <li class="nav-link">
                                 <a href="javascript:void(0)" class="nav-item dropdown-item">Settings</a>
-                            </li>
+                            </li> --}}
                             <li class="dropdown-divider"></li>
                             <li class="nav-link">
                                 <a href="#"

@@ -74,16 +74,16 @@
                                         <span class="sidebar-normal"> Customize Mainpage </span>
                                     </a>
                                 </li>
-                                <li class="{{ request()->is('terms') ? 'active' : '' }}">
-                                    <a href="{{ route('terms.edit') }}">
-                                        <span class="sidebar-mini-icon">C-T&C</span>
-                                        <span class="sidebar-normal"> Customize Terms & Conditions </span>
-                                    </a>
-                                </li>
                                 <li class="{{ request()->is('privacy') ? 'active' : '' }}">
                                     <a href="{{ route('privacy.edit') }}">
                                         <span class="sidebar-mini-icon">C-PP</span>
                                         <span class="sidebar-normal">Customize Privacy Policy </span>
+                                    </a>
+                                </li>
+                                <li class="{{ request()->is('terms') ? 'active' : '' }}">
+                                    <a href="{{ route('terms.edit') }}">
+                                        <span class="sidebar-mini-icon">C-T&C</span>
+                                        <span class="sidebar-normal"> Customize Terms & Conditions </span>
                                     </a>
                                 </li>
                             </ul>

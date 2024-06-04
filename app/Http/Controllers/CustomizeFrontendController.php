@@ -208,8 +208,8 @@ class CustomizeFrontendController extends Controller
     public function editPrivacyPage()
     {
         try {
-            $terms = PrivacyPolicy::firstOrFail(); // Assuming there's only one main page record
-            return view('customize.privacy.edit', compact('terms'));
+            $privacyPolicy = PrivacyPolicy::firstOrFail(); // Assuming there's only one main page record
+            return view('customize.privacy.edit', compact('privacyPolicy'));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return view('customize.privacy.create');
         }
