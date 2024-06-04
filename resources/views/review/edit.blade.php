@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="atmosphere_rating">Atmosphere Rating</label>
                                 <div class="form-group">
                                     <input type="number" id="atmosphere_rating" name="atmosphere_rating" min="1"
@@ -71,7 +71,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="overall_rating">Overall Rating</label>
                                 <div class="form-group">
                                     <input type="number" id="overall_rating" name="overall_rating" min="1"
@@ -85,20 +85,15 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="status">Status</label>
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <input type="checkbox" {{ $review->status == 1 ? 'checked' : '' }}
-                                        class="status-toggle" data-review-id="{{ $review->id }}"
-                                        data-on-label="<i class='tim-icons icon-check-2'></i>"
-                                        data-off-label="<i class='tim-icons icon-simple-remove'></i>" />
-                                    @error('status')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <label>Status</label>
+                                    <select name="status" class="form-control">
+                                        <option class="text-primary" value="0"
+                                            {{ $review->status == 0 ? 'selected' : '' }}>Inactive</option>
+                                        <option class="text-primary" value="1"
+                                            {{ $review->status == 1 ? 'selected' : '' }}>Active</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -115,6 +110,7 @@
             </form>
         </div>
     </div>
+</div>
 </div>
 
 @include('.includes.footer')

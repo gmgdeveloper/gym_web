@@ -104,13 +104,24 @@
                                             <td>{{ $gym->description }}</td>
                                             <td>{{ $gym->contact }}</td>
                                             <td>{{ $gym->location }}</td>
-                                            <td class="text-center">
-                                                <input type="checkbox" {{ $gym->is_featured == 1 ? 'checked' : '' }}
-                                                    class="status-toggle-{{ $gym->id }} bootstrap-switch"
-                                                    data-review-id="{{ $gym->id }}"
-                                                    data-on-label="<i class='tim-icons icon-check-2'></i>"
-                                                    data-off-label="<i class='tim-icons icon-simple-remove'></i>" />
+                                            <td>
+                                                <form id="featuredForm-{{ $gym->id }}"
+                                                    action="{{ route('gym.featured', $gym->id) }}" method="POST">
+                                                    @csrf
+                                                    <label class="switch">
+                                                        <input type="checkbox"
+                                                            {{ $gym->is_featured == 1 ? 'checked' : '' }}
+                                                            class="featured-toggle" data-gym-id="{{ $gym->id }}"
+                                                            data-on-label="<i class='tim-icons icon-check-2'></i>"
+                                                            data-off-label="<i class='tim-icons icon-simple-remove'></i>"
+                                                            onchange="document.getElementById('featuredForm-{{ $gym->id }}').submit()">
+                                                        <span class="slider"></span>
+                                                    </label>
+                                                    <input type="hidden" name="is_featured"
+                                                        value="{{ $gym->is_featured == 1 ? 0 : 1 }}">
+                                                </form>
                                             </td>
+
                                             <td class="text-center">{{ $gym->fees }}</td>
                                             <td class="text-center">{{ $gym->timing_from }} - {{ $gym->timing_to }}
                                             </td>
@@ -163,6 +174,18 @@
                 searchPlaceholder: "Search records",
             }
         });
+
+        var featuredToggles = document.querySelectorAll('.featured-toggle');
+
+        featuredToggles.forEach(function(toggle) {
+            $(toggle).bootstrapSwitch({
+                onSwitchChange: function(event, state) {
+                    var reviewId = $(this).data('gym-id');
+                    var is_featured = state ? 1 : 0;
+                }
+            });
+        });
+
     });
 
     function confirmDelete(url) {

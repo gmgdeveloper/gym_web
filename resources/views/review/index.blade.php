@@ -48,7 +48,6 @@
                                     <th>Overall</th>
                                     <th>Status</th>
                                     <th>Rated Gym's Name</th>
-                                    <th>Gym Thumbnail</th>
                                     <th>Date</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
@@ -66,22 +65,34 @@
                                                 </a>
                                             </div>
                                         </td>
-                                        <td>{{ $review->user->name }}</td>
+                                        <td><a
+                                                href="{{ route('user.show', $review->user->id) }}">{{ $review->user->name }}</a>
+                                        </td>
+
                                         <td>{{ $review->feedback }}</td>
                                         <td>{{ $review->facilities_rating }}</td>
                                         <td>{{ $review->coaching_rating }}</td>
                                         <td>{{ $review->atmosphere_rating }}</td>
                                         <td>{{ $review->overall_rating }}</td>
                                         <td>
-                                            <input type="checkbox" {{ $review->status == 1 ? 'checked' : '' }}
-                                                class="status-toggle" data-review-id="{{ $review->id }}"
-                                                data-on-label="<i class='tim-icons icon-check-2'></i>"
-                                                data-off-label="<i class='tim-icons icon-simple-remove'></i>" />
+                                            <form id="statusForm-{{ $review->id }}"
+                                                action="{{ route('review.status', $review->id) }}" method="POST">
+                                                @csrf
+                                                <label class="switch">
+                                                    <input type="checkbox" {{ $review->status == 1 ? 'checked' : '' }}
+                                                        class="status-toggle" data-review-id="{{ $review->id }}"
+                                                        data-on-label="<i class='tim-icons icon-check-2'></i>"
+                                                        data-off-label="<i class='tim-icons icon-simple-remove'></i>"
+                                                        onchange="document.getElementById('statusForm-{{ $review->id }}').submit()">
+                                                    <span class="slider"></span>
+                                                </label>
+                                                <input type="hidden" name="status"
+                                                    value="{{ $review->status == 1 ? 0 : 1 }}">
+                                            </form>
                                         </td>
-                                        <td>{{ $review->gym->name }}</td>
                                         <td>
-                                            <img src="{{ $review->gym->thumbnail ? asset($review->gym->thumbnail) : asset('assets/img/image_placeholder.jpg') }}"
-                                                alt="Gym Thumbnail" style="max-width: 100px;">
+                                            <a
+                                                href="{{ route('gym.show', $review->gym->id) }}">{{ $review->gym->name }}</a>
                                         </td>
                                         <td>{{ $review->created_at }}</td>
                                         <td class="text-right">
@@ -110,7 +121,6 @@
                                     <th>Overall</th>
                                     <th>Status</th>
                                     <th>Rated Gym's Name</th>
-                                    <th>Gym Thumbnail</th>
                                     <th>Date</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
@@ -147,22 +157,6 @@
                 onSwitchChange: function(event, state) {
                     var reviewId = $(this).data('review-id');
                     var status = state ? 1 : 0;
-
-                    $.ajax({
-                        url: '/updateReview/' + reviewId,
-                        type: 'POST',
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            status: status
-                        },
-                        success: function(response) {
-                            console.log(response);
-                        },
-                        error: function(xhr) {
-                            console.error('Request failed. Status: ' + xhr
-                                .status);
-                        }
-                    });
                 }
             });
         });

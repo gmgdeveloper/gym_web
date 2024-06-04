@@ -162,7 +162,7 @@
                         <div class="row">
                             <div class="offset-md-2"></div>
                             <div class="col-md-8">
-                                <button type="submit" class="btn btn-fill btn-primary btn-block">Submit</button>
+                                <button type="submit" class="btn btn-fill btn-primary btn-block">Add</button>
                             </div>
                         </div>
                     </div>

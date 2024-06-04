@@ -42,13 +42,29 @@ class ReviewController extends Controller
 
     public function update(Request $request, Review $review)
     {
-        $validatedData = $request->validate([
-            'status' => 'numeric',
-        ]);
-
-        $review->update($validatedData);
+        // Update only the provided fields
+        $review->fill($request->only([
+            'feedback',
+            'facilities_rating',
+            'coaching_rating',
+            'atmosphere_rating',
+            'overall_rating',
+            'status',
+        ]))->save();
 
         return redirect()->route('review.index')->with('success', 'Review updated successfully!');
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        // Find the review by its ID
+        $review = Review::findOrFail($id);
+
+        // Update the status based on the request value
+        $review->status = $request->input('status');
+        $review->save();
+
+        return redirect()->route('review.index')->with('success', 'Review status updated successfully!');
     }
 
     public function destroy(Review $review)

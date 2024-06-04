@@ -81,6 +81,9 @@ Route::middleware(['auth', 'admin_check'])->group(function () {
     // Update a specific gym
     Route::post('updateGym/{gym}', [GymController::class, 'update'])->name('gym.update');
 
+    // Update if gym is featured or now 
+    Route::post('/updateGymFeatured/{review}', [GymController::class, 'toggleFeatured'])->name('gym.featured');
+
     // Delete a specific gym
     Route::delete('deleteGym/{gym}', [GymController::class, 'destroy'])->name('gym.destroy');
 
@@ -102,6 +105,9 @@ Route::middleware(['auth', 'admin_check'])->group(function () {
 
     // Update a specific review
     Route::post('updateReview/{review}', [ReviewController::class, 'update'])->name('review.update');
+
+    // Update review status
+    Route::post('/updateReviewStatus/{review}', [ReviewController::class, 'updateStatus'])->name('review.status');
 
     // Delete a specific review
     Route::delete('deleteReview/{review}', [ReviewController::class, 'destroy'])->name('review.destroy');

@@ -85,9 +85,9 @@
                                     <label>Featured</label>
                                     <select name="is_featured" class="form-control">
                                         <option class="text-primary" value="0"
-                                            {{ $gym->featured == 0 ? 'selected' : '' }}>No</option>
+                                            {{ $gym->is_featured == 0 ? 'selected' : '' }}>No</option>
                                         <option class="text-primary" value="1"
-                                            {{ $gym->featured == 1 ? 'selected' : '' }}>Yes</option>
+                                            {{ $gym->is_featured == 1 ? 'selected' : '' }}>Yes</option>
                                     </select>
                                 </div>
                             </div>
@@ -176,7 +176,7 @@
                     <a href="{{ route('gym.index') }}" class="mx-auto btn btn-fill btn-primary">Back</a>
                     <!-- Removed text-center class -->
                 </div>
-            </div>6
+            </div>
 
             <div class="card mt-4">
                 <div class="card-header">
@@ -205,7 +205,7 @@
                     </div>
                     <div class="form-group">
                         <label>Featured</label>
-                        <p class="form-control-static">{{ $gym->featured ? 'Yes' : 'No' }}</p>
+                        <p class="form-control-static">{{ $gym->is_featured == 1 ? 'Yes' : 'No' }}</p>
                     </div>
                 </div>
             </div>

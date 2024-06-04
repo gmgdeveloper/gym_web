@@ -11,7 +11,7 @@ class GymController extends Controller
 {
     public function index()
     {
-        $gyms = Gym::all();
+        $gyms = Gym::latest()->get();
         return view('gym.index', compact('gyms'));
     }
 
@@ -67,6 +67,7 @@ class GymController extends Controller
         $gym->fees = $request->input('fees');
         $gym->timing_from = $request->input('timing_from');
         $gym->timing_to = $request->input('timing_to');
+        $gym->is_featured = $request->input('is_featured');
         $gym->thumbnail = $fileNameToStore; // Save the file path to the database
         $gym->save();
 
@@ -95,7 +96,7 @@ class GymController extends Controller
             'timing_from' => 'nullable',
             'timing_to' => 'nullable',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Max size 2MB
-            'is_featured' => 'nullable|boolean',
+            'is_featured' => 'nullable',
         ]);
 
         // If validation fails, redirect back with errors and old input
@@ -162,6 +163,7 @@ class GymController extends Controller
 
     public function updateGymProfile(Request $request, $id)
     {
+
         // Validate the request data
         $validator = Validator::make($request->all(), [
             'name' => 'nullable|string',
@@ -172,7 +174,7 @@ class GymController extends Controller
             'timing_from' => 'nullable',
             'timing_to' => 'nullable',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Max size 2MB
-            'is_featured' => 'nullable|boolean',
+            'is_featured' => 'nullable',
         ]);
 
         // If validation fails, redirect back with errors and old input
@@ -227,7 +229,6 @@ class GymController extends Controller
             $gym->timing_to = $request->input('timing_to');
         }
         if ($request->has('is_featured')) {
-            $gym->is_featured = $request->input('is_featured');
             $gym->is_featured = 1;
         } else {
             $gym->is_featured = 0;
@@ -237,6 +238,30 @@ class GymController extends Controller
         return redirect()->route('gym.show', $id)->with('success', 'Gym updated successfully!');
     }
 
+    public function toggleFeatured(Request $request, $id)
+    {
+        // Find the gym by its ID
+        $gym = Gym::findOrFail($id);
+
+        // Get the current status before updating
+        $previousStatus = $gym->is_featured;
+
+        // Update the status based on the request value
+        $gym->is_featured = $request->input('is_featured');
+        $gym->save();
+
+        // Set the default message
+        $message = 'Gym featured status updated successfully!';
+
+        // Check if the status has changed
+        if ($previousStatus != $gym->is_featured) {
+            // Adjust the message based on the new status
+            $message = "The Gym " . $gym->name . ($gym->is_featured ? ' is featured now.' : ' is not featured anymore.');
+        }
+
+        // Redirect with the dynamic message
+        return redirect()->route('gym.index')->with('success', $message);
+    }
 
 
     public function destroy($id)

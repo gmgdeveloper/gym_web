@@ -30,7 +30,7 @@
                     });
                 </script>
                 <div class="card-header">
-                    <h4 class="card-title pull-left mt-3"> users</h4>
+                    <h4 class="card-title pull-left mt-3"> Users</h4>
                     <a href="{{ route('user.create') }}" class="pull-right btn btn-fill btn-primary">Add New user</a>
 
                 </div>
